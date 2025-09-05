@@ -1,5 +1,48 @@
 name: My First Workflow
-on: [push]  # Trigger on every push
+
+on: [push]
+
 
 jobs:
-  ## your jobs here
+  hello-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Greeting
+        run: echo "Hello, GitHub Actions!"
+
+      - name: Get Current Date
+        run: date
+
+      - name: List Current Directory
+        run: ls -la
+
+  system-job:
+    needs: hello-job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show System Information
+        run: |
+          echo "=== System Info ==="
+          echo "Operating System: $(uname -s)"
+          echo "Current User: $(whoami)"
+          echo "Working Directory: $(pwd)"
+
+      - name: Create Test File
+        run: |
+          echo "This is a file" > test.txt
+          cat test.txt
+
+  summary-job:
+    needs: [hello-job, system-job]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait Message
+        run: echo "Both previous jobs completed successfully!"
+
+      - name: Final Summary
+        run: |
+          echo "=== Workflow Summary ==="
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Triggered by: ${{ github.actor }}"
+          echo "All jobs completed at: $(date)"
