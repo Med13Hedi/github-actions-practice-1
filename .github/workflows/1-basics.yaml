@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Show System Information
         run: |
-          echo "=== System Info ==="
+          echo "=== System Inf o ==="
           echo "Operating System: $(uname -s)"
           echo "Current User: $(whoami)"
           echo "Working Directory: $(pwd)"
