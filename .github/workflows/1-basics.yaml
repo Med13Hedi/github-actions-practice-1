@@ -33,7 +33,6 @@ jobs:
         run: |
           echo "This is a test file" > test.txt
           cat test.txt
-
   summary-job:
     name: Summary Report
     runs-on: ubuntu-latest
