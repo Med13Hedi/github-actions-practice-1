@@ -96,6 +96,6 @@ jobs:
 
       - name: Conditional Logic Examples
         run: |
-          echo "Environment type: ${{ github.ref_name == 'main' && 'production' || 'development' }}"
+          echo "Environment type:  ${{ github.ref_name == 'main' && 'production' || 'development' }}"
           echo "Runner type: ${{ runner.os == 'Linux' && 'unix' || 'other' }}"
           echo "Branch category: ${{ startsWith(github.ref_name, 'feature/') && 'feature' || 'stable' }}"
