@@ -106,7 +106,7 @@ jobs:
           echo "Runner type: ${{ runner.os == 'Linux' && 'unix' || 'other' }}"
           echo "Branch category: ${{ startsWith(env.CLEAN_BRANCH, 'feature/') && 'feature' || 'stable' }}"
 
-      - name: Alternative String Transformations (using shell)
+      - name: Alternative String Transformations
         run: |
           echo "=== Shell-based String Transformations ==="
           echo "Uppercase branch: $(echo '${{ env.CLEAN_BRANCH }}' | tr '[:lower:]' '[:upper:]')"

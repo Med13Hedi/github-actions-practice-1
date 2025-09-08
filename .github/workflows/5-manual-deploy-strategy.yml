@@ -1,4 +1,5 @@
 name: Manual Deployment Controller
+
 on:
   workflow_dispatch:
     inputs:
@@ -52,7 +53,7 @@ jobs:
           echo "⏰ Deployment Time: $(date)"
 
       - name: Production Environment Validation
-        if: github.event.inputs.environment == 'production'
+        if: ${{ github.event.inputs.environment == 'production' }}
         run: |
           echo "⚠️  PRODUCTION DEPLOYMENT WARNING ⚠️"
           echo "You are about to deploy to PRODUCTION environment"
@@ -62,14 +63,14 @@ jobs:
           echo "- Rollback plan is ready"
 
       - name: Staging Environment Validation
-        if: github.event.inputs.environment == 'staging'
+        if: ${{ github.event.inputs.environment == 'staging' }}
         run: |
           echo "ℹ️  STAGING DEPLOYMENT INFO"
           echo "Deploying to staging environment for testing"
           echo "This deployment will be available for QA validation"
 
       - name: Development Environment Validation
-        if: github.event.inputs.environment == 'development'
+        if: ${{ github.event.inputs.environment == 'development' }}
         run: |
           echo "🛠️  DEVELOPMENT DEPLOYMENT DEBUG"
           echo "Deploying to development environment"
@@ -98,7 +99,7 @@ jobs:
           echo "Tests will be skipped: ${{ github.event.inputs.skip_tests }}"
 
       - name: Run Tests
-        if: github.event.inputs.skip_tests == 'false'
+        if: ${{ github.event.inputs.skip_tests == 'false' }}
         run: |
           echo "🧪 Running tests for version ${{ github.event.inputs.version }}..."
           echo "Running unit tests..."
@@ -108,7 +109,7 @@ jobs:
           echo "✅ All tests passed!"
 
       - name: Production Deployment
-        if: github.event.inputs.environment == 'production'
+        if: ${{ github.event.inputs.environment == 'production' }}
         run: |
           echo "🚀 PRODUCTION DEPLOYMENT STARTING"
           echo "Environment: Production"
@@ -118,7 +119,7 @@ jobs:
           echo "✅ Production deployment completed successfully"
 
       - name: Staging Deployment
-        if: github.event.inputs.environment == 'staging'
+        if: ${{ github.event.inputs.environment == 'staging' }}
         run: |
           echo "🚀 STAGING DEPLOYMENT STARTING"
           echo "Environment: Staging"
@@ -128,7 +129,7 @@ jobs:
           echo "✅ Staging deployment completed successfully"
 
       - name: Development Deployment
-        if: github.event.inputs.environment == 'development'
+        if: ${{ github.event.inputs.environment == 'development' }}
         run: |
           echo "🚀 DEVELOPMENT DEPLOYMENT STARTING"
           echo "Environment: Development"
@@ -161,7 +162,7 @@ jobs:
   notify:
     needs: deploy
     runs-on: ubuntu-latest
-    if: always()  # Run even if deployment fails
+    if: always()
     steps:
       - name: Deployment Status Check
         run: |
@@ -175,7 +176,7 @@ jobs:
           fi
 
       - name: Success Notification
-        if: needs.deploy.result == 'success'
+        if: ${{ needs.deploy.result == 'success' }}
         run: |
           echo "🎉 DEPLOYMENT SUCCESS NOTIFICATION"
           echo "✅ Successfully deployed ${{ github.event.inputs.version }} to ${{ github.event.inputs.environment }}"
@@ -184,7 +185,7 @@ jobs:
           echo "⏰ Completed at: $(date)"
 
       - name: Failure Notification
-        if: needs.deploy.result != 'success'
+        if: ${{ needs.deploy.result != 'success' }}
         run: |
           echo "🚨 DEPLOYMENT FAILURE NOTIFICATION"
           echo "❌ Failed to deploy ${{ github.event.inputs.version }} to ${{ github.event.inputs.environment }}"
