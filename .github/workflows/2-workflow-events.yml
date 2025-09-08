@@ -1,13 +1,15 @@
-name: Event Name Detector
-
 on:
-  workflow_dispatch:
   push:
-  pull_request:
+    branches:
+      - dev
+      - 'release/*'
+    paths-ignore:
+      - 'docs/**'
 
 jobs:
-  echo:
+  test-filters:
+    name: Test Filters
     runs-on: ubuntu-latest
     steps:
-      - name: Display Trigger Name
-        run: echo "I've been triggered by ${{ github.event_name }} event"
+      - name: Confirm filters worked
+        run: echo "Event filters working! Triggered on ${{ github.ref_name }} branch"
