@@ -1,3 +1,5 @@
+name : Practice 3 - Event Filters
+
 on:
   push:
     branches:
