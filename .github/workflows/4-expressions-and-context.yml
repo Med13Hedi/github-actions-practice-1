@@ -49,10 +49,3 @@ jobs:
           echo "API key configured: ${{ secrets.TEST_API_KEY != '' && 'YES' || 'NO' }}"
           echo "Database URL starts with 'postgresql': ${{ startsWith(secrets.DATABASE_URL, 'postgresql') }}"
 
-  logic-operations:
-    needs: context-explorer
-    runs-on: ubuntu-latest
-    steps:
-    # Your Step 1: Branch-based Conditional Steps (3 separate conditional steps)
-    # Your Step 2: OS Conditional Steps (3 separate conditional steps)
-    # Your Step 3: String Manipulation Functions
