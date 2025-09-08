@@ -121,9 +121,9 @@ echo "=== Version Validation ==="
 echo "Deploying version: [USER_VERSION_INPUT]"
 # Add simple validation logic
 if [[ "[USER_VERSION_INPUT]" == "latest" ]]; then
-  echo "⚠️  Using latest version - consider using specific version tags"
+  echo "Using latest version - consider using specific version tags"
 else
-  echo "✅ Using specific version: [USER_VERSION_INPUT]"
+  echo "Using specific version: [USER_VERSION_INPUT]"
 fi
 ```
 
