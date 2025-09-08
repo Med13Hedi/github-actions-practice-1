@@ -46,6 +46,8 @@ jobs:
           echo "=== Secrets Availability Check ==="
           echo "Has TEST_API_KEY secret: ${{ secrets.TEST_API_KEY != '' }}"
           echo "Has DATABASE_URL secret: ${{ secrets.DATABASE_URL != '' }}"
+          echo "TEST_API_KEY env: ${{ env.TEST_API_KEY }}"
+          echo "DATABASE_URL env: ${{ env.DATABASE_URL }}"
           echo "API key configured: ${{ secrets.TEST_API_KEY != '' && 'YES' || 'NO' }}"
           echo "Database URL starts with 'postgresql': ${{ startsWith(secrets.DATABASE_URL, 'postgresql') }}"
 
