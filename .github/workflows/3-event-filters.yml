@@ -1,4 +1,15 @@
-name: 3-event-filters.yml
 on:
+  push:
+    branches:
+      - dev
+      - 'release/*'
+    paths-ignore:
+      - 'docs/**'
 
 jobs:
+  test-filters:
+    name: Test Filters
+    runs-on: ubuntu-latest
+    steps:
+      - name: Confirm filters worked
+        run: echo "Event filters working! Triggered on ${{ github.ref_name }} branch"

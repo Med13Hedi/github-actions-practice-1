@@ -214,20 +214,20 @@ Implement conditional steps that:
 2. Click "Manual Deployment Controller"
 3. Click "Run workflow"
 4. Select:
-    - Environment: `production`
-    - Version: `v2.1.0`
-    - Skip Tests: `false`
-    - Strategy: `blue-green`
-    - Channel: `#prod-deployments`
+   - Environment: `production`
+   - Version: `v2.1.0`
+   - Skip Tests: `false`
+   - Strategy: `blue-green`
+   - Channel: `#prod-deployments`
 5. Expected: Production warnings, tests run, blue-green deployment
 
 **Test 2: Manual Trigger - Development**
 1. Same process but select:
-    - Environment: `development`
-    - Version: `latest`
-    - Skip Tests: `true`
-    - Strategy: `rolling`
-    - Channel: `#dev-team`
+   - Environment: `development`
+   - Version: `latest`
+   - Skip Tests: `true`
+   - Strategy: `rolling`
+   - Channel: `#dev-team`
 5. Expected: Development deployment, tests skipped, rolling strategy
 
 **Test 3: Failure Simulation**

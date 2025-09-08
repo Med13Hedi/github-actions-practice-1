@@ -29,7 +29,7 @@ Create a workflow with **2 jobs** that explore different aspects of GitHub expre
 
 **📍 Step 3: Add Another Secret**
 1. Click **New repository secret** again
-2. Enter **Name**: `DATABASE_URL`
+2. Enter **Name**: `DATABASE_URL`  
 3. Enter **Value**: `postgresql://user:pass@localhost:5432/mydb`
 4. Click **Add secret**
 
@@ -113,7 +113,7 @@ env:
 - Create a step that only runs when the branch is exactly `main`
 - Display: "This is the main branch - Production mode"
 
-**Requirement 2: Feature Branch Detection**
+**Requirement 2: Feature Branch Detection**  
 - Create a step that only runs when the branch name starts with `feature/`
 - Display: "This is a feature branch - Development mode"
 
@@ -131,7 +131,7 @@ echo "🐧 Running on Linux - using apt package manager"
 echo "Linux runner detected: ${{ runner.os }}"
 ```
 
-**macOS Step:** Only run if `runner.os` equals `macOS`
+**macOS Step:** Only run if `runner.os` equals `macOS`  
 ```bash
 echo "🍎 Running on macOS - using homebrew package manager"
 echo "macOS runner detected: ${{ runner.os }}"
@@ -206,7 +206,7 @@ jobs:
 - Expected: "This is the main branch" message appears
 - Environment should show "production"
 
-**Test 2: Create and Push to Feature Branch**
+**Test 2: Create and Push to Feature Branch**  
 - Create branch: `feature/test-expressions`
 - Expected: "This is a feature branch" message appears
 - Branch category should show "feature"
@@ -228,7 +228,7 @@ jobs:
 ✅ **Environment variables** from job env block appear correctly  
 ✅ **Secrets availability** checks work (requires creating secrets first)
 
-### Job 2: Logic Operations
+### Job 2: Logic Operations  
 ✅ **Branch conditionals** show different messages based on branch name  
 ✅ **OS conditionals** show appropriate message for runner type  
 ✅ **String manipulations** transform text correctly  
@@ -236,7 +236,7 @@ jobs:
 
 ### Advanced Success
 ✅ **Ternary operations** work for dynamic value selection  
-✅ **Complex conditions** combine multiple context objects
+✅ **Complex conditions** combine multiple context objects  
 
 ---
 
