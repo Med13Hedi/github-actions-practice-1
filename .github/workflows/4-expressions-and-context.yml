@@ -50,15 +50,3 @@ jobs:
           echo "DATABASE_URL env: ${{ env.DATABASE_URL }}"
           echo "API key configured: ${{ secrets.TEST_API_KEY != '' && 'YES' || 'NO' }}"
           echo "Database URL starts with 'postgresql': ${{ startsWith(secrets.DATABASE_URL, 'postgresql') }}"
-
-      - name: Set Environment Variables
-        run: |
-          echo "=== Setting Environment Variables ==="
-          echo "TEST_API_KEY: ${{ secrets.TEST_API_KEY }}"
-          echo "DATABASE_URL: ${{ secrets.DATABASE_URL }}"
-
-      - name: Verify Secret Values
-        run: |
-          echo "=== Verifying Secret Values ==="
-          echo "TEST_API_KEY: ${{ env.TEST_API_KEY }}"
-          echo "DATABASE_URL: ${{ env.DATABASE_URL }}"
