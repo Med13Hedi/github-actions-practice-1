@@ -1,4 +1,4 @@
-name: Event Filterskout
+name: Event Filters
 
 on:
   push:
