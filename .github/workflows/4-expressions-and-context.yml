@@ -1,5 +1,6 @@
 name: Expressions & Context
-on: 
+
+on:
   push:
   workflow_dispatch:
 
@@ -10,12 +11,14 @@ jobs:
       NODE_VERSION: '18'
       BUILD_ENV: 'development'
       APP_NAME: 'TestApp'
+      CLEAN_BRANCH: ${{ github.ref_name }}
     steps:
       - name: GitHub Context Information
         run: |
           echo "=== GitHub Context ==="
           echo "Repository: ${{ github.repository }}"
           echo "Branch: ${{ github.ref_name }}"
+          echo "Clean branch (from env): ${{ env.CLEAN_BRANCH }}"
           echo "Triggered by: ${{ github.actor }}"
           echo "Event type: ${{ github.event_name }}"
           echo "Run number: ${{ github.run_number }}"
@@ -36,25 +39,29 @@ jobs:
           echo "Node version from env: ${{ env.NODE_VERSION }}"
           echo "Build environment: ${{ env.BUILD_ENV }}"
           echo "Application name: ${{ env.APP_NAME }}"
+          echo "Clean branch name from env: ${{ env.CLEAN_BRANCH }}"
           echo "System PATH exists: ${{ env.PATH != '' }}"
           echo "Home directory: ${{ env.HOME }}"
 
       - name: Secrets Context Test
         env:
-          TEST_API_KEY: ${{ secrets.TEST_API_KEY }}
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          TEST_API_KEY: "key"
+          DATABASE_URL: "db url"
         run: |
           echo "=== Secrets Availability Check ==="
           echo "Has TEST_API_KEY secret: ${{ secrets.TEST_API_KEY != '' }}"
           echo "Has DATABASE_URL secret: ${{ secrets.DATABASE_URL != '' }}"
+          echo "TEST_API_KEY env: ${{ env.TEST_API_KEY }}"
+          echo "DATABASE_URL env: ${{ env.DATABASE_URL }}"
           echo "API key configured: ${{ secrets.TEST_API_KEY != '' && 'YES' || 'NO' }}"
           echo "Database URL starts with 'postgresql': ${{ startsWith(secrets.DATABASE_URL, 'postgresql') }}"
 
   logic-operations:
     needs: context-explorer
     runs-on: ubuntu-latest
+    env:
+      CLEAN_BRANCH: ${{ github.ref_name }}
     steps:
-      # Branch-based Conditional Steps
       - name: Main Branch Detection
         if: github.ref_name == 'main'
         run: echo "This is the main branch - Production mode"
@@ -67,7 +74,6 @@ jobs:
         if: github.ref_name != 'main' && !startsWith(github.ref_name, 'feature/')
         run: echo "This is another type of branch - Testing mode"
 
-      # Operating System Conditional Steps
       - name: Linux Operations
         if: runner.os == 'Linux'
         run: |
@@ -77,26 +83,32 @@ jobs:
       - name: macOS Operations
         if: runner.os == 'macOS'
         run: |
-          echo "🍎 Running on macOS - using homebrew package manager"
+          echo "Running on macOS - using homebrew package manager"
           echo "macOS runner detected: ${{ runner.os }}"
 
       - name: Windows Operations
         if: runner.os == 'Windows'
         run: |
-          echo "🪟 Running on Windows - using chocolatey package manager"
+          echo "Running on Windows - using chocolatey package manager"
           echo "Windows runner detected: ${{ runner.os }}"
 
       - name: String Manipulation Functions
         run: |
           echo "=== String Transformations ==="
           echo "Original ref: ${{ github.ref }}"
-          echo "Clean branch name: ${{ replace(github.ref, 'refs/heads/', '') }}"
-          echo "Uppercase branch: ${{ upper(github.ref_name) }}"
-          echo "Lowercase branch: ${{ lower(github.ref_name) }}"
-          echo "Branch contains 'main': ${{ contains(github.ref_name, 'main') }}"
-          echo "Branch starts with 'feature': ${{ startsWith(github.ref_name, 'feature/') }}"
+          echo "Clean branch (from env): ${{ env.CLEAN_BRANCH }}"
+          echo "Branch contains 'main': ${{ contains(env.CLEAN_BRANCH, 'main') }}"
+          echo "Branch starts with 'feature': ${{ startsWith(env.CLEAN_BRANCH, 'feature/') }}"
+          echo "Branch ends with 'dev': ${{ endsWith(env.CLEAN_BRANCH, 'dev') }}"
           
           echo "=== Conditional Logic ==="
           echo "Environment type: ${{ github.ref_name == 'main' && 'production' || 'development' }}"
           echo "Runner type: ${{ runner.os == 'Linux' && 'unix' || 'other' }}"
-          echo "Branch category: ${{ startsWith(github.ref_name, 'feature/') && 'feature' || 'stable' }}"
+          echo "Branch category: ${{ startsWith(env.CLEAN_BRANCH, 'feature/') && 'feature' || 'stable' }}"
+
+      - name: Alternative String Transformations (using shell)
+        run: |
+          echo "=== Shell-based String Transformations ==="
+          echo "Uppercase branch: $(echo '${{ env.CLEAN_BRANCH }}' | tr '[:lower:]' '[:upper:]')"
+          echo "Lowercase branch: $(echo '${{ env.CLEAN_BRANCH }}' | tr '[:upper:]' '[:lower:]')"
+          echo "Replace slashes with dashes: $(echo '${{ env.CLEAN_BRANCH }}' | sed 's/\//-/g')"
