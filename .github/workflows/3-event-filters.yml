@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - dev
-      - 'release/*'
+      - 'release/**'
     paths-ignore:
       - 'docs/**'
 
