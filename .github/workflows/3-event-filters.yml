@@ -1,4 +1,4 @@
-name: Practice 3 - Event Filters
+name: Event Filters
 
 on:
   push:
@@ -10,8 +10,8 @@ on:
 
 jobs:
   test-filters:
-    name: Test Filters
+    name: test filters
     runs-on: ubuntu-latest
     steps:
-      - name: Confirm filters worked
+      - name: Demonstrate that the workflow runs only under the right conditions
         run: echo "Event filters working! Triggered on ${{ github.ref_name }} branch"
