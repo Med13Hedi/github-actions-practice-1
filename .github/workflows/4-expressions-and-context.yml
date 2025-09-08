@@ -60,7 +60,3 @@ jobs:
           echo "=== Verifying Secret Values ==="
           echo "TEST_API_KEY: ${{ env.TEST_API_KEY }}"
           echo "DATABASE_URL: ${{ env.DATABASE_URL }}"
-
-      - name: Confirm filters worked
-        run: |
-          echo "Event filters working! Triggered on ${{ github.ref_name }} branch"
