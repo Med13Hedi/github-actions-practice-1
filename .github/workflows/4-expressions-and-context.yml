@@ -97,12 +97,18 @@ jobs:
           echo "=== String Transformations ==="
           echo "Original ref: ${{ github.ref }}"
           echo "Clean branch (from env): ${{ env.CLEAN_BRANCH }}"
-          echo "Uppercase branch: ${{ upper(env.CLEAN_BRANCH) }}"
-          echo "Lowercase branch: ${{ lower(env.CLEAN_BRANCH) }}"
           echo "Branch contains 'main': ${{ contains(env.CLEAN_BRANCH, 'main') }}"
           echo "Branch starts with 'feature': ${{ startsWith(env.CLEAN_BRANCH, 'feature/') }}"
+          echo "Branch ends with 'dev': ${{ endsWith(env.CLEAN_BRANCH, 'dev') }}"
           
           echo "=== Conditional Logic ==="
           echo "Environment type: ${{ github.ref_name == 'main' && 'production' || 'development' }}"
           echo "Runner type: ${{ runner.os == 'Linux' && 'unix' || 'other' }}"
           echo "Branch category: ${{ startsWith(env.CLEAN_BRANCH, 'feature/') && 'feature' || 'stable' }}"
+
+      - name: Alternative String Transformations (using shell)
+        run: |
+          echo "=== Shell-based String Transformations ==="
+          echo "Uppercase branch: $(echo '${{ env.CLEAN_BRANCH }}' | tr '[:lower:]' '[:upper:]')"
+          echo "Lowercase branch: $(echo '${{ env.CLEAN_BRANCH }}' | tr '[:upper:]' '[:lower:]')"
+          echo "Replace slashes with dashes: $(echo '${{ env.CLEAN_BRANCH }}' | sed 's/\//-/g')"
