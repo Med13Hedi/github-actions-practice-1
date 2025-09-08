@@ -42,5 +42,5 @@ jobs:
           echo "=== Workflow Summary ==="
           echo "Repository: ${{ github.repository }}"
           echo "Branch: ${{ github.ref_name }}"
-          echo "Triggered by: ${{ github.actor }}"
+          echo "Trigger ed by: ${{ github.actor }}"
           echo "All jobs completed at: $(date)"
